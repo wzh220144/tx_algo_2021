@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+USE_GPU=0
+
 # #################### get env directories
 # CONDA_ROOT
 CONDA_CONFIG_ROOT_PREFIX=$(conda config --show root_prefix)
@@ -352,7 +354,7 @@ elif [ "$TYPE" = "test" ]; then
   OUTPUT_SCENE_SEG_TEST_PLACE_FEAT_DIR=${OUTPUT_SCENE_SEG_TEST_5K_DIR}/place_feat
   if [ ! -d ${OUTPUT_SCENE_SEG_TEST_PLACE_FEAT_DIR} ]; then
     echo "[Info] place features not exists, generating: OUTPUT_SCENE_SEG_TEST_PLACE_FEAT_DIR= ${OUTPUT_SCENE_SEG_TEST_PLACE_FEAT_DIR}"
-    time python place/extract_feat.py --data_root "${OUTPUT_SCENE_SEG_TEST_5K_DIR}"
+    time python place/extract_feat.py --data_root "${OUTPUT_SCENE_SEG_TEST_5K_DIR}" --use_gpu "${USE_GPU}"
   else
     echo "[Info] place features exist, no need to generate: OUTPUT_SCENE_SEG_TEST_PLACE_FEAT_DIR= ${OUTPUT_SCENE_SEG_TEST_PLACE_FEAT_DIR}"
   fi

@@ -353,7 +353,9 @@ def main(args):
     cudnn.benchmark = True
     # create model
     model = ResNet50(pretrained=True)
-    model = torch.nn.DataParallel(model).cuda()
+    model = torch.nn.DataParallel(model)
+    if args.use_gpu == 1:
+        model = model.cuda()
     # create and extractor
     extractor = Extractor(model)
     
@@ -431,6 +433,7 @@ if __name__ == '__main__':
     # parser.add_argument('--save_feat_path',type=str,default=osp.join(data_root,'place_feat'))
     parser.add_argument('--st', type=int, default=0, help='start number') 
     parser.add_argument('--ed', type=int, default=9999999, help='end number')
+    parser.add_argument('--use_gpu', type=int, default=1, help='use gpu')
     args = parser.parse_args()
     #args.list_file = osp.join(args.data_root,'meta/list_test.txt')
     args.list_file = None
